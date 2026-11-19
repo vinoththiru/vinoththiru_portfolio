@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vinoththiru.github.io/vinoththiru_portfolio/sitemap.xml
