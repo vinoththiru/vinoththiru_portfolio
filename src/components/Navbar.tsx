@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
 import { Download, Menu, X } from 'lucide-react';
 import { profileData } from '../data/profile';
 import { useActiveSection } from '../hooks/useActiveSection';
-import { useThanos } from '../context/ThanosContext';
 import type { NavSectionId } from '../types/portfolio';
 
 const NAV_ITEMS: { id: NavSectionId; label: string }[] = [
@@ -40,13 +39,6 @@ export function Navbar() {
 
   const isHomePage = location.pathname === '/' || location.pathname === '';
   const activeSection = useActiveSection(isHomePage);
-  const { toggleSnap, snapState, registerSectionRef, unregisterSectionRef } = useThanos();
-  const navRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    registerSectionRef('navbar', navRef);
-    return () => unregisterSectionRef('navbar');
-  }, [registerSectionRef, unregisterSectionRef]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -92,7 +84,6 @@ export function Navbar() {
 
   return (
     <header
-      ref={navRef}
       id="navbar"
       className={`fixed inset-x-0 top-0 z-[150] transition-all duration-300 ${
         useLightHeader
@@ -111,17 +102,14 @@ export function Navbar() {
         aria-label="Primary navigation"
         className="editorial-container flex h-16 items-center justify-between gap-4 sm:h-[72px]"
       >
-        {/* VT Brand Monogram - Secret surprise on click */}
+        {/* VT Brand Monogram */}
         <motion.button
           type="button"
           onClick={() => {
             if (isHomePage) {
-              toggleSnap();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
               navigate('/');
-              setTimeout(() => {
-                toggleSnap();
-              }, 400);
             }
           }}
           className="group flex items-center gap-3 rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
@@ -138,12 +126,6 @@ export function Navbar() {
             }`}
           >
             {profileData.initials}
-            {snapState === 'snapped' && (
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_6px_#10B981]" />
-              </span>
-            )}
           </span>
           <span className="hidden flex-col sm:flex">
             <span

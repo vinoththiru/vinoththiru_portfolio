@@ -157,68 +157,6 @@
   opacity: 0.6;
 }
 
-/* Authentic Thanos Ash Dissolution Effect: Text content & cards lift, drift diagonally and dissolve into air */
-@keyframes ashFlyAway {
-  0% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translate(0, 0) rotate(0deg);
-  }
-  25% {
-    filter: contrast(135%) brightness(120%) blur(0.5px);
-    text-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
-  }
-  60% {
-    opacity: 0.6;
-    filter: contrast(80%) blur(3px) grayscale(90%);
-    transform: translate(22px, -15px) rotate(1.2deg) skewX(1.5deg);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(10px) grayscale(100%);
-    transform: translate(50px, -32px) rotate(2deg) skewX(3deg);
-    pointer-events: none;
-    visibility: hidden;
-  }
-}
-
-.ash-dissolve {
-  animation: ashFlyAway 2s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
-  pointer-events: none !important;
-}
-
-.ash-reassemble {
-  animation: ashFlyAway 1.5s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards !important;
-}
-
-/* Sequential Google-style dust classes: 60 FPS GPU-accelerated */
-.section-dust-disintegrate {
-  transform: translate(28px, -16px) rotate(1.2deg) skewX(1deg) !important;
-  opacity: 0 !important;
-  filter: blur(6px) grayscale(90%) !important;
-  pointer-events: none !important;
-  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
-              filter 0.65s cubic-bezier(0.25, 1, 0.5, 1) !important;
-}
-
-.section-dusted {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transform: translate(32px, -20px) !important;
-  filter: blur(8px) !important;
-}
-
-.section-dust-restore {
-  transform: translate(0px, 0px) rotate(0deg) skewX(0deg) !important;
-  opacity: 1 !important;
-  filter: blur(0px) grayscale(0%) !important;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

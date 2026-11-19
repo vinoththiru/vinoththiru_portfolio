@@ -1,7 +1,6 @@
 import { servicesData } from '../data/services';
 import { SectionHeading } from '../components/SectionHeading';
 import { ServiceCard } from '../components/ServiceCard';
-import { ThanosDustedItem } from '../components/ThanosDustedItem';
 
 interface ServicesProps {
   onSelectService: (subject: string) => void;
@@ -19,13 +18,12 @@ export function Services({ onSelectService }: ServicesProps) {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {servicesData.map((service, index) => (
-            <ThanosDustedItem key={service.id} id={`service-${service.id}`}>
-              <ServiceCard
-                service={service}
-                index={index}
-                onSelectService={onSelectService}
-              />
-            </ThanosDustedItem>
+            <ServiceCard
+              key={service.id}
+              service={service}
+              index={index}
+              onSelectService={onSelectService}
+            />
           ))}
         </div>
       </div>

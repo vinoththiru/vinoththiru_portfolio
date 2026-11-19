@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar, CheckCircle2 } from 'lucide-react';
 import type { ExperienceItem } from '../types/portfolio';
-import { ThanosDustedItem } from './ThanosDustedItem';
 
 interface ExperienceTimelineProps {
   items: ExperienceItem[];
@@ -84,8 +83,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
               )}
             </span>
 
-            <ThanosDustedItem id={`exp-${item.id}`}>
-              <article className="editorial-card editorial-card-hover overflow-hidden">
+            <article className="editorial-card editorial-card-hover overflow-hidden">
                 {/* Top accent bar */}
                 <div
                   className={`h-1 w-full ${
@@ -184,7 +182,6 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                 </motion.div>
               </div>
             </article>
-          </ThanosDustedItem>
         </motion.li>
         ))}
       </ol>

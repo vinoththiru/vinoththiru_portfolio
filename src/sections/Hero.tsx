@@ -14,8 +14,6 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { profileData } from '../data/profile';
 import { Button } from '../components/Button';
-import { ThanosDustedItem } from '../components/ThanosDustedItem';
-import { useThanos } from '../context/ThanosContext';
 
 /* ─── Variants (Smooth 60fps GPU-accelerated entrance) ─── */
 const containerVariants = {
@@ -124,7 +122,6 @@ function useCounter(target: number, inView: boolean, prefersReducedMotion: boole
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const [copiedCode, setCopiedCode] = useState(false);
-  const { toggleSnap } = useThanos();
 
   const handleCopyCode = async () => {
     const codeSnippet = `class EngineerProfile:
@@ -222,9 +219,7 @@ export function Hero() {
             {/* Clean, high-impact headline with instant 60fps entrance */}
             <motion.h1
               variants={fadeUpVariant}
-              onClick={toggleSnap}
-              title="Vinoth Thiruppathi"
-              className="mt-5 inline-block font-display text-4xl font-bold leading-[1.08] tracking-tight text-ivory sm:text-5xl lg:text-6xl cursor-pointer select-none transition-colors hover:text-gold/90"
+              className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-ivory sm:text-5xl lg:text-6xl"
             >
               {name}
             </motion.h1>
@@ -555,32 +550,28 @@ export function Hero() {
 
               {/* Factual Domain Badges */}
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <ThanosDustedItem id="hero-badge-education">
-                  <div className="rounded-xl border border-ivory/15 bg-white/[0.04] p-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">
-                      Education
-                    </p>
-                    <p className="mt-1 font-heading text-sm font-semibold text-ivory">
-                      B.Tech AI &amp; DS
-                    </p>
-                    <p className="mt-0.5 font-mono text-[11px] text-ivory/70">
-                      2024 &bull; CGPA 8.6/10
-                    </p>
-                  </div>
-                </ThanosDustedItem>
-                <ThanosDustedItem id="hero-badge-build">
-                  <div className="rounded-xl border border-ivory/15 bg-white/[0.04] p-3.5">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">
-                      Flagship Build
-                    </p>
-                    <p className="mt-1 font-heading text-sm font-semibold text-ivory">
-                      Purchase Mini ERP
-                    </p>
-                    <p className="mt-0.5 font-mono text-[11px] text-ivory/70">
-                      Full-Stack Independent
-                    </p>
-                  </div>
-                </ThanosDustedItem>
+                <div className="rounded-xl border border-ivory/15 bg-white/[0.04] p-3.5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">
+                    Education
+                  </p>
+                  <p className="mt-1 font-heading text-sm font-semibold text-ivory">
+                    B.Tech AI &amp; DS
+                  </p>
+                  <p className="mt-0.5 font-mono text-[11px] text-ivory/70">
+                    2024 &bull; CGPA 8.6/10
+                  </p>
+                </div>
+                <div className="rounded-xl border border-ivory/15 bg-white/[0.04] p-3.5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold">
+                    Flagship Build
+                  </p>
+                  <p className="mt-1 font-heading text-sm font-semibold text-ivory">
+                    Purchase Mini ERP
+                  </p>
+                  <p className="mt-0.5 font-mono text-[11px] text-ivory/70">
+                    Full-Stack Independent
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>

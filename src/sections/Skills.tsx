@@ -1,7 +1,6 @@
 import { skillCategories } from '../data/skills';
 import { SectionHeading } from '../components/SectionHeading';
 import { SkillCard } from '../components/SkillCard';
-import { ThanosDustedItem } from '../components/ThanosDustedItem';
 
 export function Skills() {
   return (
@@ -15,9 +14,7 @@ export function Skills() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, index) => (
-            <ThanosDustedItem key={category.id} id={`skill-${category.id}`}>
-              <SkillCard category={category} index={index} />
-            </ThanosDustedItem>
+            <SkillCard key={category.id} category={category} index={index} />
           ))}
         </div>
       </div>

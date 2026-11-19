@@ -1,7 +1,6 @@
 import { projectsData } from '../data/projects';
 import { ProjectCard } from '../components/ProjectCard';
 import { SectionHeading } from '../components/SectionHeading';
-import { ThanosDustedItem } from '../components/ThanosDustedItem';
 
 export function Projects() {
   const featuredProject = projectsData.find((p) => p.featured);
@@ -22,18 +21,14 @@ export function Projects() {
         {/* Flagship Featured Project */}
         {featuredProject && (
           <div className="mt-12">
-            <ThanosDustedItem id={`project-${featuredProject.id}`}>
-              <ProjectCard project={featuredProject} index={0} />
-            </ThanosDustedItem>
+            <ProjectCard project={featuredProject} index={0} />
           </div>
         )}
 
         {/* Enterprise Projects Grid */}
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {otherProjects.map((project, index) => (
-            <ThanosDustedItem key={project.id} id={`project-${project.id}`}>
-              <ProjectCard project={project} index={index + 1} />
-            </ThanosDustedItem>
+            <ProjectCard key={project.id} project={project} index={index + 1} />
           ))}
         </div>
       </div>

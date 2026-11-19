@@ -7,15 +7,10 @@ import { PageTransition } from './components/PageTransition';
 import { AmbientGlow } from './components/AmbientGlow';
 import { FloatingBackToTop } from './components/FloatingBackToTop';
 import { SuperheroEasterEgg } from './components/SuperheroEasterEgg';
-import { ThanosProvider, useThanos } from './context/ThanosContext';
-import { ThanosEasterEgg } from './components/ThanosEasterEgg';
-import { SectionDisintegration } from './components/SectionDisintegration';
 import { Home } from './pages/Home';
 import { ProjectCaseStudy } from './pages/ProjectCaseStudy';
 
 function PortfolioContent() {
-  const { isAllDusted } = useThanos();
-
   return (
     <>
       <ScrollToTop />
@@ -24,7 +19,7 @@ function PortfolioContent() {
       {/* ── 1. Sticky Navigation Bar ── */}
       <Navbar />
 
-      {/* ── 2. Sequential Main Content Sections ── */}
+      {/* ── 2. Main Content Sections ── */}
       <div className="flex min-h-screen flex-col bg-ivory text-charcoal">
         <div className="flex-1">
           <PageTransition>
@@ -36,21 +31,11 @@ function PortfolioContent() {
           </PageTransition>
         </div>
 
-        {/* ── 3. Sequential Footer Disintegration ── */}
-        <SectionDisintegration id="footer">
-          <Footer />
-        </SectionDisintegration>
-
-        {!isAllDusted && (
-          <>
-            <FloatingBackToTop />
-            <SuperheroEasterEgg />
-          </>
-        )}
+        {/* ── 3. Footer & Utilities ── */}
+        <Footer />
+        <FloatingBackToTop />
+        <SuperheroEasterEgg />
       </div>
-
-      {/* ── 4. Google-Style Thanos Dust Canvas & Iron Man Restoration Engine ── */}
-      <ThanosEasterEgg />
     </>
   );
 }
@@ -62,9 +47,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <BrowserRouter basename={basename}>
-        <ThanosProvider>
-          <PortfolioContent />
-        </ThanosProvider>
+        <PortfolioContent />
       </BrowserRouter>
     </MotionConfig>
   );

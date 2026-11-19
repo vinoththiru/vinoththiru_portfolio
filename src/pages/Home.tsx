@@ -6,7 +6,6 @@ import { Skills } from '../sections/Skills';
 import { Projects } from '../sections/Projects';
 import { Services } from '../sections/Services';
 import { Contact } from '../sections/Contact';
-import { SectionDisintegration } from '../components/SectionDisintegration';
 
 export function Home() {
   const [selectedServiceSubject, setSelectedServiceSubject] = useState('');
@@ -26,33 +25,13 @@ export function Home() {
 
   return (
     <main id="main-content">
-      <SectionDisintegration id="hero">
-        <Hero />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="about">
-        <About />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="experience">
-        <Experience />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="skills">
-        <Skills />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="projects">
-        <Projects />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="services">
-        <Services onSelectService={handleSelectService} />
-      </SectionDisintegration>
-
-      <SectionDisintegration id="contact">
-        <Contact prefilledSubject={selectedServiceSubject} />
-      </SectionDisintegration>
+      <Hero />
+      <About />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Services onSelectService={handleSelectService} />
+      <Contact prefilledSubject={selectedServiceSubject} />
     </main>
   );
 }

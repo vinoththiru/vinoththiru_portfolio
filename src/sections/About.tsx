@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Award, GraduationCap, Layers, MapPin } from 'lucide-react';
 import { profileData } from '../data/profile';
 import { SectionHeading } from '../components/SectionHeading';
-import { ThanosDustedItem } from '../components/ThanosDustedItem';
 
 export function About() {
   return (
@@ -34,20 +33,18 @@ export function About() {
 
             {/* 3 Highlight Pillars */}
             <div className="grid gap-4 pt-4 sm:grid-cols-3">
-              {profileData.aboutHighlights.map((highlight, idx) => (
-                <ThanosDustedItem key={highlight.label} id={`about-highlight-${idx}`}>
-                  <div className="editorial-card p-4">
-                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-burgundy">
-                      {highlight.label}
-                    </p>
-                    <p className="mt-1.5 font-heading text-sm font-semibold text-burgundy-deep">
-                      {highlight.value}
-                    </p>
-                    <p className="mt-1.5 text-xs leading-relaxed text-muted text-justify">
-                      {highlight.detail}
-                    </p>
-                  </div>
-                </ThanosDustedItem>
+              {profileData.aboutHighlights.map((highlight) => (
+                <div key={highlight.label} className="editorial-card p-4">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-burgundy">
+                    {highlight.label}
+                  </p>
+                  <p className="mt-1.5 font-heading text-sm font-semibold text-burgundy-deep">
+                    {highlight.value}
+                  </p>
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted text-justify">
+                    {highlight.detail}
+                  </p>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -61,66 +58,62 @@ export function About() {
             className="space-y-5 lg:col-span-5"
           >
             {/* Education Card */}
-            <ThanosDustedItem id="about-card-education">
-              <div className="editorial-card overflow-hidden">
-                <div className="flex items-center justify-between bg-burgundy px-6 py-4 text-ivory">
-                  <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-gold">
-                    <GraduationCap className="h-4 w-4" aria-hidden="true" />
-                    Education
-                  </span>
-                  <span className="rounded-full border border-gold/50 px-2.5 py-0.5 font-mono text-[11px] text-ivory">
-                    Class of {profileData.education.year}
-                  </span>
-                </div>
+            <div className="editorial-card overflow-hidden">
+              <div className="flex items-center justify-between bg-burgundy px-6 py-4 text-ivory">
+                <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-gold">
+                  <GraduationCap className="h-4 w-4" aria-hidden="true" />
+                  Education
+                </span>
+                <span className="rounded-full border border-gold/50 px-2.5 py-0.5 font-mono text-[11px] text-ivory">
+                  Class of {profileData.education.year}
+                </span>
+              </div>
 
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-semibold text-burgundy-deep">
-                    {profileData.education.degree}
-                  </h3>
-                  <p className="mt-1.5 text-sm font-medium text-charcoal">
-                    {profileData.education.institution}
-                  </p>
+              <div className="p-6">
+                <h3 className="font-display text-xl font-semibold text-burgundy-deep">
+                  {profileData.education.degree}
+                </h3>
+                <p className="mt-1.5 text-sm font-medium text-charcoal">
+                  {profileData.education.institution}
+                </p>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-blush pt-4">
-                    <span className="inline-flex items-center rounded-lg bg-ivory px-3 py-1.5 font-mono text-xs font-semibold text-burgundy">
-                      CGPA: {profileData.education.cgpa}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted">
-                      <MapPin className="h-3.5 w-3.5 text-gold-dark" aria-hidden="true" />
-                      {profileData.location}
-                    </span>
-                  </div>
+                <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-blush pt-4">
+                  <span className="inline-flex items-center rounded-lg bg-ivory px-3 py-1.5 font-mono text-xs font-semibold text-burgundy">
+                    CGPA: {profileData.education.cgpa}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted">
+                    <MapPin className="h-3.5 w-3.5 text-gold-dark" aria-hidden="true" />
+                    {profileData.location}
+                  </span>
                 </div>
               </div>
-            </ThanosDustedItem>
+            </div>
 
             {/* Certifications & Training (from supplied resume) */}
-            <ThanosDustedItem id="about-card-certs">
-              <div className="editorial-card p-6">
-                <div className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-burgundy">
-                  <Award className="h-4 w-4 text-gold-dark" aria-hidden="true" />
-                  Certifications &amp; Training
-                </div>
-                <ul className="mt-4 space-y-3.5">
-                  {profileData.certifications.map((cert) => (
-                    <li
-                      key={cert.title}
-                      className="rounded-xl border border-blush/80 bg-ivory/75 p-3.5"
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <p className="font-heading text-sm font-semibold text-burgundy-deep">
-                          {cert.title}
-                        </p>
-                        <span className="shrink-0 rounded-md bg-white px-2 py-0.5 font-mono text-[10px] font-medium text-burgundy">
-                          {cert.duration}
-                        </span>
-                      </div>
-                      <p className="mt-1 text-xs text-muted">{cert.issuer}</p>
-                    </li>
-                  ))}
-                </ul>
+            <div className="editorial-card p-6">
+              <div className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-burgundy">
+                <Award className="h-4 w-4 text-gold-dark" aria-hidden="true" />
+                Certifications &amp; Training
               </div>
-            </ThanosDustedItem>
+              <ul className="mt-4 space-y-3.5">
+                {profileData.certifications.map((cert) => (
+                  <li
+                    key={cert.title}
+                    className="rounded-xl border border-blush/80 bg-ivory/75 p-3.5"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-heading text-sm font-semibold text-burgundy-deep">
+                        {cert.title}
+                      </p>
+                      <span className="shrink-0 rounded-md bg-white px-2 py-0.5 font-mono text-[10px] font-medium text-burgundy">
+                        {cert.duration}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-muted">{cert.issuer}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* Operating Philosophy Callout */}
             <div className="rounded-2xl border border-gold/45 bg-blush/35 p-5">
