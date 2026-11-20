@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import { Download, Menu, X } from 'lucide-react';
+import { Download, Menu, Volume2, VolumeX, X } from 'lucide-react';
 import { profileData } from '../data/profile';
 import { useActiveSection } from '../hooks/useActiveSection';
+import { audioEffects } from '../utils/audioEffects';
 import type { NavSectionId } from '../types/portfolio';
 
 const NAV_ITEMS: { id: NavSectionId; label: string }[] = [
@@ -33,12 +34,17 @@ const mobileLinkVariants = {
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [soundMuted, setSoundMuted] = useState(audioEffects.isMuted());
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
 
   const isHomePage = location.pathname === '/' || location.pathname === '';
   const activeSection = useActiveSection(isHomePage);
+
+  useEffect(() => {
+    return audioEffects.subscribe((muted) => setSoundMuted(muted));
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -60,6 +66,7 @@ export function Navbar() {
   }, []);
 
   const handleSectionNavigation = (sectionId: NavSectionId) => {
+    audioEffects.playClick();
     setMobileMenuOpen(false);
     if (isHomePage) {
       const el = document.getElementById(sectionId);
@@ -106,12 +113,14 @@ export function Navbar() {
         <motion.button
           type="button"
           onClick={() => {
+            audioEffects.playClick();
             if (isHomePage) {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
               navigate('/');
             }
           }}
+          onMouseEnter={() => audioEffects.playHover()}
           className="group flex items-center gap-3 rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           aria-label="Vinoth Thiruppathi - AI/ML & Python Engineer"
           whileHover={{ scale: 1.03 }}
@@ -157,6 +166,7 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => handleSectionNavigation(item.id)}
+                  onMouseEnter={() => audioEffects.playHover()}
                   aria-current={isActive ? 'page' : undefined}
                   className={`group relative rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-200 ${
                     useLightHeader
@@ -191,9 +201,36 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2.5">
+          {/* Studio Audio FX Toggle */}
+          <button
+            type="button"
+            onClick={() => {
+              const nextMuted = audioEffects.toggleMute();
+              if (!nextMuted) {
+                audioEffects.playPop();
+              }
+            }}
+            onMouseEnter={() => audioEffects.playHover()}
+            title={soundMuted ? 'Sound FX: Muted (Click to enable)' : 'Sound FX: Active (Click to mute)'}
+            aria-label={soundMuted ? 'Enable sound effects' : 'Mute sound effects'}
+            className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
+              useLightHeader
+                ? 'border-blush/80 bg-white/80 text-burgundy hover:border-gold hover:text-burgundy-deep shadow-sm'
+                : 'border-ivory/20 bg-white/5 text-ivory hover:border-gold hover:text-gold shadow-sm'
+            }`}
+          >
+            {soundMuted ? (
+              <VolumeX className="h-4 w-4 text-rose-400" />
+            ) : (
+              <Volume2 className="h-4 w-4 text-gold" />
+            )}
+          </button>
+
           <motion.a
             href={profileData.resumePath}
             download="Vinoth_Thiruppathi_Resume.pdf"
+            onClick={() => audioEffects.playSuccess()}
+            onMouseEnter={() => audioEffects.playHover()}
             className={`navbar-resume-btn hidden items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-all sm:inline-flex ${
               useLightHeader
                 ? 'bg-burgundy text-ivory hover:bg-burgundy-deep shadow-card'
@@ -208,7 +245,10 @@ export function Navbar() {
 
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            onClick={() => {
+              audioEffects.playClick();
+              setMobileMenuOpen((prev) => !prev);
+            }}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}

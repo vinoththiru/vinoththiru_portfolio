@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes, ReactNode } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
+import { audioEffects } from '../utils/audioEffects';
 
 type ButtonVariant = 'primary' | 'secondary' | 'gold' | 'outline-light' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -62,27 +63,86 @@ export function Button(props: ButtonProps) {
   const classes = getClasses(variant, size, className);
 
   if (props.as === 'a') {
-    const { as: _as, variant: _v, size: _s, className: _c, children: _ch, ...anchorProps } =
-      props;
+    const {
+      as: _as,
+      variant: _v,
+      size: _s,
+      className: _c,
+      children: _ch,
+      onMouseEnter,
+      onClick,
+      ...anchorProps
+    } = props;
     return (
-      <a className={classes} {...anchorProps}>
+      <a
+        className={classes}
+        onMouseEnter={(e) => {
+          audioEffects.playHover();
+          onMouseEnter?.(e);
+        }}
+        onClick={(e) => {
+          audioEffects.playClick();
+          onClick?.(e);
+        }}
+        {...anchorProps}
+      >
         {children}
       </a>
     );
   }
 
   if (props.as === 'link') {
-    const { as: _as, variant: _v, size: _s, className: _c, children: _ch, ...linkProps } = props;
+    const {
+      as: _as,
+      variant: _v,
+      size: _s,
+      className: _c,
+      children: _ch,
+      onMouseEnter,
+      onClick,
+      ...linkProps
+    } = props;
     return (
-      <Link className={classes} {...linkProps}>
+      <Link
+        className={classes}
+        onMouseEnter={(e) => {
+          audioEffects.playHover();
+          onMouseEnter?.(e);
+        }}
+        onClick={(e) => {
+          audioEffects.playClick();
+          onClick?.(e);
+        }}
+        {...linkProps}
+      >
         {children}
       </Link>
     );
   }
 
-  const { as: _as, variant: _v, size: _s, className: _c, children: _ch, ...buttonProps } = props;
+  const {
+    as: _as,
+    variant: _v,
+    size: _s,
+    className: _c,
+    children: _ch,
+    onMouseEnter,
+    onClick,
+    ...buttonProps
+  } = props;
   return (
-    <button className={classes} {...buttonProps}>
+    <button
+      className={classes}
+      onMouseEnter={(e) => {
+        audioEffects.playHover();
+        onMouseEnter?.(e);
+      }}
+      onClick={(e) => {
+        audioEffects.playClick();
+        onClick?.(e);
+      }}
+      {...buttonProps}
+    >
       {children}
     </button>
   );

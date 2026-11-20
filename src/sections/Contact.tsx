@@ -16,6 +16,7 @@ import { profileData } from '../data/profile';
 import { Button } from '../components/Button';
 import { SectionHeading } from '../components/SectionHeading';
 import { BatmanBatIcon } from '../components/SuperheroIcons';
+import { audioEffects } from '../utils/audioEffects';
 
 interface ContactProps {
   prefilledSubject?: string;
@@ -93,6 +94,7 @@ export function Contact({ prefilledSubject = '' }: ContactProps) {
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(profileData.email);
+      audioEffects.playSuccess();
       setCopiedEmail(true);
       window.setTimeout(() => setCopiedEmail(false), 2400);
     } catch {
@@ -105,6 +107,7 @@ export function Contact({ prefilledSubject = '' }: ContactProps) {
     const formatted = `To: ${profileData.email}\nSubject: ${form.subject.trim()}\nFrom: ${form.name.trim()} <${form.email.trim()}>\n\n${form.message.trim()}`;
     try {
       await navigator.clipboard.writeText(formatted);
+      audioEffects.playSuccess();
       setCopiedPayload(true);
       window.setTimeout(() => setCopiedPayload(false), 2400);
     } catch {

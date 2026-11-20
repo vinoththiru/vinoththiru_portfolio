@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { audioEffects } from '../utils/audioEffects';
 
 export function FloatingBackToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,6 +18,7 @@ export function FloatingBackToTop() {
   }, [scrollYProgress]);
 
   const scrollToTop = () => {
+    audioEffects.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -33,6 +35,7 @@ export function FloatingBackToTop() {
           <button
             type="button"
             onClick={scrollToTop}
+            onMouseEnter={() => audioEffects.playHover()}
             aria-label="Scroll back to top"
             className="group relative flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 bg-burgundy-deep text-gold shadow-editorial transition-all hover:scale-105 hover:border-gold hover:bg-burgundy active:scale-95"
           >

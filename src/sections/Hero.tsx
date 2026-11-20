@@ -14,6 +14,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { profileData } from '../data/profile';
 import { Button } from '../components/Button';
+import { audioEffects } from '../utils/audioEffects';
 
 /* ─── Variants (Smooth 60fps GPU-accelerated entrance) ─── */
 const containerVariants = {
@@ -133,6 +134,7 @@ export function Hero() {
   side_quest = "Automating the Universe"`;
     try {
       await navigator.clipboard.writeText(codeSnippet);
+      audioEffects.playSuccess();
       setCopiedCode(true);
       setTimeout(() => setCopiedCode(false), 2000);
     } catch {
@@ -343,6 +345,8 @@ export function Hero() {
                     target={target}
                     rel={rel}
                     aria-label={label}
+                    onClick={() => audioEffects.playClick()}
+                    onMouseEnter={() => audioEffects.playHover()}
                     whileHover={shouldReduceMotion ? undefined : { scale: 1.05, y: -2 }}
                     whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
                     className="inline-flex items-center gap-2 rounded-lg border border-ivory/20 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-ivory transition-colors hover:border-gold hover:text-gold"
