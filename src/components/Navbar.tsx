@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import { Download, Menu, Volume2, VolumeX, X } from 'lucide-react';
+import { Download, Menu, X } from 'lucide-react';
 import { profileData } from '../data/profile';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { audioEffects } from '../utils/audioEffects';
@@ -34,17 +34,12 @@ const mobileLinkVariants = {
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [soundMuted, setSoundMuted] = useState(audioEffects.isMuted());
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
 
   const isHomePage = location.pathname === '/' || location.pathname === '';
   const activeSection = useActiveSection(isHomePage);
-
-  useEffect(() => {
-    return audioEffects.subscribe((muted) => setSoundMuted(muted));
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -201,31 +196,6 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2.5">
-          {/* Studio Audio FX Toggle */}
-          <button
-            type="button"
-            onClick={() => {
-              const nextMuted = audioEffects.toggleMute();
-              if (!nextMuted) {
-                audioEffects.playPop();
-              }
-            }}
-            onMouseEnter={() => audioEffects.playHover()}
-            title={soundMuted ? 'Sound FX: Muted (Click to enable)' : 'Sound FX: Active (Click to mute)'}
-            aria-label={soundMuted ? 'Enable sound effects' : 'Mute sound effects'}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${
-              useLightHeader
-                ? 'border-blush/80 bg-white/80 text-burgundy hover:border-gold hover:text-burgundy-deep shadow-sm'
-                : 'border-ivory/20 bg-white/5 text-ivory hover:border-gold hover:text-gold shadow-sm'
-            }`}
-          >
-            {soundMuted ? (
-              <VolumeX className="h-4 w-4 text-rose-400" />
-            ) : (
-              <Volume2 className="h-4 w-4 text-gold" />
-            )}
-          </button>
-
           <motion.a
             href={profileData.resumePath}
             download="Vinoth_Thiruppathi_Resume.pdf"
